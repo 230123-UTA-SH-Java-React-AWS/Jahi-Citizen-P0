@@ -1,0 +1,60 @@
+# Created by https://www.gitignore.io/api/java,spring,sts,intellij,netbeans,visualstudiocode
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Java ###
+*.class
+*.war
+*.ear
+*.jar
+target/
+mvnw
+mvnw.cmd
+.mvn/
+src/main/java/com/revature/P0/
+src/main/resources/application.properties
+src/test/java/com/revature/P0/
+
+### Spring ###
+/target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Other ###
+*.log
+*.log.*
+*.xls
+*.xlsx
+*.csv
+*.zip
+*.gz
+*.pdf
+*.jar
+*.war
+*.ear
