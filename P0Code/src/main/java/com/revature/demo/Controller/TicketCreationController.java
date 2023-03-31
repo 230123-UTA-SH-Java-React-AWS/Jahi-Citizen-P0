@@ -7,40 +7,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.demo.Model.EmployeeModel;
-import com.revature.demo.Service.EmployeeService;
-
+import com.revature.demo.Model.TicketModel;
+import com.revature.demo.Service.TicketService;
 
 @RestController
-public class EmployRegistrationController {
+public class TicketCreationController {
 
-    //Dependency injection 
+    //Dependency injection / IOC example 
     @Autowired
-    private EmployeeService employeeService; 
+    TicketService ticketServ; 
 
-    @PostMapping("/Registration")
-    public ResponseEntity<String> register(@RequestBody EmployeeModel employee )
+    @PostMapping("/CreateTicket")
+    public ResponseEntity<String> createTicket(@RequestBody TicketModel ticket)
     {
         
-        String response = employeeService.save(employee);
+        String response = ticketServ.save(ticket);
         HttpStatus status = HttpStatus.OK;
 
-        if (response.startsWith("Error:")) 
+        if (response.startsWith("Unexpected error")) 
         {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        else if (response.startsWith("Please enter"))
+        else if (response.startsWith("Ticket denied"))
         {
             status = HttpStatus.BAD_REQUEST;
         }
-        else if (response.startsWith("Email is already"))
+        else if (response.startsWith("Either an amount"))
         {
             status = HttpStatus.CONFLICT;
         }
 
         return ResponseEntity.status(status).body(response);
-
     }
-
-
+    
 }

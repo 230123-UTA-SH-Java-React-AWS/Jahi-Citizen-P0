@@ -3,6 +3,7 @@ package com.revature.demo.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 
@@ -44,6 +45,36 @@ public class EmployeeService {
     }
 }
 
+    public String login(EmployeeModel employeeInput)
+    {
+        EmployeeModel employee = employeeRepository.findByEmail(employeeInput.getEmail());
+        
+        try 
+        {
+            if (employee != null && employee.getPassword().equals(employeeInput.getPassword()))
+            {
+                return "success, welcome to the portal" + employee.getName() + "!"; 
+            }
+            else 
+            {
+                return "Invalid email or password, please try again.";
+            }
+
+        }catch (DataAccessException ex) {
+
+            return "Unexpected database error occured. Please contact customer service";
+
+        }catch (Exception e){
+
+            //Handling any errors that occur 
+            return "Unexpected error, please consult customer service"; 
+        }
+
+
+       
+    }
+}
+
   
     
-}
+

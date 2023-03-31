@@ -10,37 +10,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.demo.Model.EmployeeModel;
 import com.revature.demo.Service.EmployeeService;
 
-
 @RestController
-public class EmployRegistrationController {
+public class EmployeeLoginController {
 
-    //Dependency injection 
+    //Dependency Injection/implemention of IOC 
     @Autowired
     private EmployeeService employeeService; 
 
-    @PostMapping("/Registration")
-    public ResponseEntity<String> register(@RequestBody EmployeeModel employee )
-    {
+    @PostMapping("/Login")
+    public ResponseEntity<String> employeeLogin(@RequestBody EmployeeModel employee)
+    {   
         
-        String response = employeeService.save(employee);
+        String response = employeeService.login(employee);
         HttpStatus status = HttpStatus.OK;
 
-        if (response.startsWith("Error:")) 
+        if (response.startsWith("Unexpected database"))
         {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        else if (response.startsWith("Please enter"))
+        else if (response.startsWith("Unexpected error"))
+        {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        else if (response.startsWith("Invalid"))
         {
             status = HttpStatus.BAD_REQUEST;
         }
-        else if (response.startsWith("Email is already"))
+        else 
         {
-            status = HttpStatus.CONFLICT;
+            status = HttpStatus.ACCEPTED;
         }
 
         return ResponseEntity.status(status).body(response);
 
     }
-
-
+    
 }

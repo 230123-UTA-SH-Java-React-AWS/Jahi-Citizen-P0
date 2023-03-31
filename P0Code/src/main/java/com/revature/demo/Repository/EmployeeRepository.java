@@ -10,5 +10,6 @@ import com.revature.demo.Model.EmployeeModel;
 public interface EmployeeRepository extends JpaRepository<EmployeeModel, Integer> {
 
     EmployeeModel findByEmail(String email);
+    EmployeeModel findByPassword(String password);
    
 }
